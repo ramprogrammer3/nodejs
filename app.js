@@ -1,22 +1,17 @@
-function addNumber(a,b){
-    return a + b
-}
-
-function subNumber(a,b){
-    return a - b;
-}
-
-module.exports = {
-    addNumber,
-    subNumber
-}
-
-
-
-exports.addNumber = (a,b) =>{
+function add(a,b){
     return a + b;
 }
 
-exports.subNumber = (a,b)=>{
+function sub(a,b){
     return a - b;
 }
+
+function mul(a,b){
+    return a * b;
+}
+
+module.exports = add;
+
+exports = module.exports;
+exports.sub = sub;
+exports.mul = mul;
