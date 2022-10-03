@@ -1,55 +1,95 @@
 
-const jwt = require('jsonwebtoken')
-let secretKey = "shhh";
-let payload = {
-    name : "ram"
-}
-const token = jwt.sign(payload, secretKey)
-console.log(token)
+const express = require('express')
+const port = 8080;
+const app = express();
+const http = require('http').createServer(app);
+const io = require("socket.io")(http);
+
+app.get("/",(req,res)=>{
+    res.sendFile(__dirname + "/public/index.html")
+})
+
+// io.on("connection",(socket)=>{
+//     console.log(`user connected`)
+// })
+
+// io.on("connection",(socket)=>{
+//     console.log(`user connected`)
+//     socket.on("message",(msg)=>{
+//         console.log(msg)
+//     })
+// })
+
+
+// io.on("connection",(socket)=>{
+//     console.log(`user connected`)
+//     socket.on("message",(msg)=>{
+//         io.emit("message",msg)
+//     })
+// })
+
+
+// io.on("connection",(socket)=>{
+//     console.log(`user connected`)
+//     socket.on("message",(name,message)=>{
+//         console.log(`${message} send by ${name}`)
+//     })
+// })
+
+
+// io.on("connection",(socket)=>{
+//     console.log(`user connected`)
+//     socket.on("message",(name,message)=>{
+//         console.log(`${message} send by ${name}`);
+//         io.emit("message",name,message)
+//     });
+//     socket.on("deleteMessage",(id)=>{
+//         io.emit("deleteMessage",id)
+//     })
+// })
 
 
 
 
-const jwt = require('jsonwebtoken')
-let secretKey = "shhh";
-let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicmFtIiwiaWF0IjoxNjYxMjE3NjQwfQ.fFw4kAMpxcS6Y7TbIDZDrBs8Phcj9s-aOXRMedztrFg"
-let decodedData = jwt.verify(token,secretKey)
-console.log(decodedData)
-
-
-const jwt = require('jsonwebtoken')
-let secretKey = "shhh";
-let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicmFtZXNoIiwiaWF0IjoxNjYxMjE3NjQwfQ.GC1uOdchccBFs7mH7K1wKT8Ii5Rx1l5Y8yCG0XgIIzY"
-try{
-    let decodedData = jwt.verify(token,secretKey)
-    console.log(decodedData)
-}catch(err){
-    console.log("Invalid token")
-}
-
-
-
-const jwt = require('jsonwebtoken')
-let secretKey = "shhh";
-let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicmFtZXNoIiwiaWF0IjoxNjYxMjE3NjQwfQ.GC1uOdchccBFs7mH7K1wKT8Ii5Rx1l5Y8yCG0XgIIzY"
-try{
-    let decodedData = jwt.verify(token,secretKey)
-    console.log(decodedData)
-}catch(err){
-    console.log("Invalid token")
-}
-
-
-
-bcrypt 
-
-const bcrypt = require('bcrypt')
-const hashedPassword = bcrypt.hashSync("1234",4)
-console.log(hashedPassword)
+// io.on("connection",(socket)=>{
+//     io.emit("connection")
+//     console.log(`user connected`)
+//     socket.on("message",(name,message)=>{
+//         console.log(`${message} send by ${name}`);
+//         io.emit("message",name,message)
+//     });
+//     socket.on("deleteMessage",(id)=>{
+//         io.emit("deleteMessage",id)
+//     })
+// })
 
 
 
 
+let usersConnected = 0;
+io.on("connection",(socket)=>{
+    usersConnected++;
+    io.emit("connection",usersConnected)
+    console.log(`user connected`)
+    socket.on("message",(name,message)=>{
+        console.log(`${message} send by ${name}`);
+        io.emit("message",name,message)
+    });
+    socket.on("deleteMessage",(id)=>{
+        io.emit("deleteMessage",id)
+    })
+
+    socket.on("disconnect",()=>{
+        console.log("user disconnected")
+        usersConnected--;
+        io.emit("connection",usersConnected)
+    })
+    
+})
 
 
 
+
+http.listen(port,()=>{
+    console.log(`server is running on port ${port}`)
+})

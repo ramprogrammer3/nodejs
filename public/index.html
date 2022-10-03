@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Chat App </h1>
+    <p>users connected : <span id="connectionCount"></span></p>
+    <input type="text" placeholder="enter name here" id="name"><br><br>
+    <input type="text" placeholder="type message" id="msg"><br><br>
+    <button onclick="sendMessage()">send message</button><br><br>
+    <div id="message-container">
+
+    </div>
+
+    <script src="http://localhost:8080/socket.io/socket.io.js">
+    </script>
+    <script>
+
+        // io();
+
+
+    //   let socketClient =  io();
+    //   socketClient.emit("message","Hello from client")
+
+
+
+    // let socketClient =  io();
+    // socketClient.emit("message","Hello from client 1")
+    // socketClient.on("message",(msg)=>{
+    //     console.log(msg)
+    // })   
+
+
+
+    // let socketClient =  io();
+    // function sendMessage(){
+    //     let name = document.getElementById("name").value;
+    //     let message = document.getElementById("msg").value;
+    //     socketClient.emit("message",name,message);
+
+    // }
+
+    // socketClient.on("message",(name,message)=>{
+    //     console.log(`${message} send by ${name}`)
+    // })
+
+
+
+    // let messageContainer = document.getElementById("message-container")    
+    // let socketClient =  io();
+    // function sendMessage(){
+    //     let name = document.getElementById("name").value;
+    //     let message = document.getElementById("msg").value;
+    //     socketClient.emit("message",name,message);
+
+    // }
+    // socketClient.on("message",(name,message)=>{
+    //     console.log(`${message} send by ${name}`)
+    //     messageContainer.innerHTML += `<p> ${name} : ${message} </p>`
+    // })
+
+
+
+    // let messageContainer = document.getElementById("message-container")  
+    // let messageCount = 0;  
+    // let socketClient =  io();
+    // function sendMessage(){
+    //     let name = document.getElementById("name").value;
+    //     let message = document.getElementById("msg").value;
+    //     socketClient.emit("message",name,message);
+
+    // }
+    // socketClient.on("message",(name,message)=>{
+    //     messageCount++;
+    //     console.log(`${message} send by ${name}`)
+    //     messageContainer.innerHTML += `<p id = "message${messageCount}"> ${name} : ${message} <button>delete messaage </button> </p>`
+    // })
+
+
+
+    // let messageContainer = document.getElementById("message-container")  
+    // let messageCount = 0;  
+    // let socketClient =  io();
+    // function sendMessage(){
+    //     let name = document.getElementById("name").value;
+    //     let message = document.getElementById("msg").value;
+    //     socketClient.emit("message",name,message);
+
+    // }
+    // socketClient.on("message",(name,message)=>{
+    //     messageCount++;
+    //     console.log(`${message} send by ${name}`)
+    //     messageContainer.innerHTML += `<p id = "message${messageCount}"> ${name} : ${message}
+    //          <button onclick = deleteMessage("message${messageCount}")>delete messaage </button></p>`
+    // })
+    // function deleteMessage(id){
+    //     // document.getElementById(id).innerHTML = ""
+    //     // document.getElementById(id).remove();
+
+
+    //     socketClient.emit("deleteMessage",id)
+    // }
+    // socketClient.on("deleteMessage",(id)=>{
+    //     document.getElementById(id).remove()
+    // })
+
+
+
+
+
+
+
+
+    // let messageContainer = document.getElementById("message-container")  
+    // let messageCount = 0;  
+    // let socketClient =  io();
+
+    // socketClient.on("connection",()=>{
+    //     console.log("user connected here ")
+    // })
+
+    // function sendMessage(){
+    //     let name = document.getElementById("name").value;
+    //     let message = document.getElementById("msg").value;
+    //     socketClient.emit("message",name,message);
+
+    // }
+    // socketClient.on("message",(name,message)=>{
+    //     messageCount++;
+    //     console.log(`${message} send by ${name}`)
+    //     messageContainer.innerHTML += `<p id = "message${messageCount}"> ${name} : ${message}
+    //          <button onclick = deleteMessage("message${messageCount}")>delete messaage </button></p>`
+    // })
+    // function deleteMessage(id){
+    //     // document.getElementById(id).innerHTML = ""
+    //     // document.getElementById(id).remove();
+    //     socketClient.emit("deleteMessage",id)
+    // }
+    // socketClient.on("deleteMessage",(id)=>{
+    //     document.getElementById(id).remove()
+    // })
+
+
+
+
+
+
+    let messageContainer = document.getElementById("message-container")  
+    let messageCount = 0;  
+    let socketClient =  io();
+
+    socketClient.on("connection",(usersConnected)=>{
+        console.log("user connected here " + usersConnected)
+        document.getElementById("connectionCount").innerHTML = usersConnected
+    })
+
+    function sendMessage(){
+        let name = document.getElementById("name").value;
+        let message = document.getElementById("msg").value;
+        socketClient.emit("message",name,message);
+
+    }
+    socketClient.on("message",(name,message)=>{
+        messageCount++;
+        console.log(`${message} send by ${name}`)
+        messageContainer.innerHTML += `<p id = "message${messageCount}"> ${name} : ${message}
+             <button onclick = deleteMessage("message${messageCount}")>delete messaage </button></p>`
+    })
+    function deleteMessage(id){
+        // document.getElementById(id).innerHTML = ""
+        // document.getElementById(id).remove();
+        socketClient.emit("deleteMessage",id)
+    }
+    socketClient.on("deleteMessage",(id)=>{
+        document.getElementById(id).remove()
+    })
+
+
+    </script>
+</body>
+</html>
