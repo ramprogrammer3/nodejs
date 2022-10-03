@@ -18,9 +18,11 @@
   "homepage": "https://github.com/ramprogrammer3/nodejs#readme",
   "dependencies": {
     "axios": "^0.27.2",
+    "bcrypt": "^5.0.1",
     "ejs": "^3.1.8",
     "express": "^4.18.1",
     "express-validator": "^6.14.2",
+    "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.10.0",
     "mongoose": "^6.6.3",
     "mysql": "^2.18.1"

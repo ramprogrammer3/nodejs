@@ -1,23 +1,55 @@
 
-
-const express = require('express');
-const app = express();
-const port = 8080;
-const mongoose = require("mongoose");
-const userRoutes = require("./views/userRoutes");
-
-const uri = "mongodb+srv://ramkumar:334300@cluster0.lerh1za.mongodb.net/?retryWrites=true&w=majority";
-mongoose.connect(uri,{useNewUrlParser: true, useUnifiedTopology: true})
-.then(()=>{
-    console.log("DB connection successful");
-}).catch(()=>{
-    console.log("DB connection failed ");
-})
-
-app.use(express.json());
-app.use(userRoutes);   
+const jwt = require('jsonwebtoken')
+let secretKey = "shhh";
+let payload = {
+    name : "ram"
+}
+const token = jwt.sign(payload, secretKey)
+console.log(token)
 
 
-app.listen(port,()=>{
-    console.log(`server is running on port ${port}`);
-})
+
+
+const jwt = require('jsonwebtoken')
+let secretKey = "shhh";
+let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicmFtIiwiaWF0IjoxNjYxMjE3NjQwfQ.fFw4kAMpxcS6Y7TbIDZDrBs8Phcj9s-aOXRMedztrFg"
+let decodedData = jwt.verify(token,secretKey)
+console.log(decodedData)
+
+
+const jwt = require('jsonwebtoken')
+let secretKey = "shhh";
+let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicmFtZXNoIiwiaWF0IjoxNjYxMjE3NjQwfQ.GC1uOdchccBFs7mH7K1wKT8Ii5Rx1l5Y8yCG0XgIIzY"
+try{
+    let decodedData = jwt.verify(token,secretKey)
+    console.log(decodedData)
+}catch(err){
+    console.log("Invalid token")
+}
+
+
+
+const jwt = require('jsonwebtoken')
+let secretKey = "shhh";
+let token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoicmFtZXNoIiwiaWF0IjoxNjYxMjE3NjQwfQ.GC1uOdchccBFs7mH7K1wKT8Ii5Rx1l5Y8yCG0XgIIzY"
+try{
+    let decodedData = jwt.verify(token,secretKey)
+    console.log(decodedData)
+}catch(err){
+    console.log("Invalid token")
+}
+
+
+
+bcrypt 
+
+const bcrypt = require('bcrypt')
+const hashedPassword = bcrypt.hashSync("1234",4)
+console.log(hashedPassword)
+
+
+
+
+
+
+
